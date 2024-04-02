@@ -1,0 +1,59 @@
+﻿<Window x:Class="ToDoListApplication.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ToDoListApplication"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" Background="#FF118177">
+    <Window.Resources>
+        <!-- Style for rounded buttons -->
+        <Style x:Key="RoundedButtonStyle" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="10">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid OpacityMask="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" Margin="0,0,0,52" Background="#FFBBF7EC">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="185*"/>
+            <ColumnDefinition Width="211*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Margin="10" Grid.ColumnSpan="2">
+            <!-- TextBox with rounded edges -->
+            <TextBox x:Name="TaskTextBox" Width="300" Margin="0,0,10,0" Background="#FFE1FFFF" FontSize="18" FontFamily="Segoe UI Black" SelectionBrush="#FF0B7A70" SpellCheck.IsEnabled="True" BorderBrush="#FF236A61" TextChanged="TaskTextBox_TextChanged"/>
+            <!-- Add Task button with rounded edges -->
+            <Button Content="Add Task" Click="AddTask_Click" Background="#FF118177" FontFamily="Segoe UI Black" FontSize="18" Style="{StaticResource RoundedButtonStyle}" Width="120"/>
+        </StackPanel>
+
+        <ListBox x:Name="TaskListBox" Grid.Row="1" Margin="10"
+                 SelectionMode="Extended" Grid.ColumnSpan="2" d:IsHidden="True">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox IsChecked="{Binding IsCompleted}" VerticalAlignment="Center"/>
+                        <TextBlock Text="{Binding Description}" Margin="5,0"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <!-- Remove Selected button with rounded edges -->
+        <Button Content="Remove Selected" Grid.Row="1" HorizontalAlignment="Right" Margin="0,10,10,10"
+                Click="RemoveSelected_Click" Grid.Column="1" FontFamily="Segoe UI Black" FontSize="18" BorderBrush="#FF073E31" Background="#FF118177" Style="{StaticResource RoundedButtonStyle}" Width="153"/>
+
+        <!-- TextBlock for the application title -->
+        <TextBlock Text="To Do List App - Developed by Varsha Sunil" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="1" Grid.ColumnSpan="2" Margin="165,330,212,-41" FontFamily="Segoe Print" Width="415" Foreground="#FF032C29" Height="32" />
+    </Grid>
+</Window>
